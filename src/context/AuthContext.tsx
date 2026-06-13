@@ -78,7 +78,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         body: JSON.stringify({ action: 'login', email, password })
       });
 
-      const data = await res.json();
+      let data: any = {};
+      if (res.headers.get('content-type')?.includes('application/json')) {
+        data = await res.json();
+      }
+
       if (res.ok && !data.error) {
         const sessionUser: UserSession = {
           id: data.id,
@@ -102,9 +106,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         body: JSON.stringify({ action: 'login', email, password })
       });
 
-      const dataFallback = await resFallback.json();
+      let dataFallback: any = {};
+      if (resFallback.headers.get('content-type')?.includes('application/json')) {
+        dataFallback = await resFallback.json();
+      }
+
       if (!resFallback.ok) {
-        throw new Error(dataFallback.error || data.error || 'Login failed.');
+        throw new Error(dataFallback.error || data.error || `Login failed (Status ${resFallback.status}).`);
       }
 
       setUser(dataFallback.user);
@@ -130,7 +138,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         body: JSON.stringify({ action: 'register', name, email, phone, password, role })
       });
 
-      const data = await res.json();
+      let data: any = {};
+      if (res.headers.get('content-type')?.includes('application/json')) {
+        data = await res.json();
+      }
+
       if (res.ok && !data.error) {
         const sessionUser: UserSession = {
           id: data.id,
@@ -154,9 +166,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         body: JSON.stringify({ action: 'register', name, email, phone, password, role })
       });
 
-      const dataFallback = await resFallback.json();
+      let dataFallback: any = {};
+      if (resFallback.headers.get('content-type')?.includes('application/json')) {
+        dataFallback = await resFallback.json();
+      }
+
       if (!resFallback.ok) {
-        throw new Error(dataFallback.error || data.error || 'Registration failed.');
+        throw new Error(dataFallback.error || data.error || `Registration failed (Status ${resFallback.status}).`);
       }
 
       setUser(dataFallback.user);
