@@ -1,0 +1,130 @@
+{
+  "leads": [
+    {
+      "id": "lead-1",
+      "name": "Rajesh Kumar",
+      "email": "rajesh@example.com",
+      "phone": "+91 99751 75762",
+      "division": "sand",
+      "message": "Need 50 brass of washed river sand delivered to our commercial housing site in Bhadgaon. Please provide pricing and transport schedule.",
+      "status": "New",
+      "timestamp": "2026-06-06T12:30:00.000Z"
+    },
+    {
+      "id": "lead-2",
+      "name": "Priyanka Deshmukh",
+      "email": "priyanka.d@example.com",
+      "phone": "+91 99751 75762",
+      "division": "materials",
+      "message": "Inquiring about bulk price for 500 bags of UltraTech OPC 53 and 10 metric tons of JSW TMT steel rods for our warehouse project in Jalgaon.",
+      "status": "Contacted",
+      "timestamp": "2026-06-06T14:15:00.000Z"
+    },
+    {
+      "id": "lead-1780835966440-770",
+      "name": "jay",
+      "email": "jp1998340@gmail.com",
+      "phone": "8010871044",
+      "division": "materials",
+      "message": "=== REQUEST FOR QUOTATION ===\nRFQ ID: RFQ-MQ3RR5WY\nProject: jayesh\nUrgency: URGENT\nDelivery Address: pune 301\nDelivery Distance: 8 km\n\nMATERIALS REQUIRED:\n• Fine Plaster Sand: 1 Brass [Spec: 1brass ]\n\nADDITIONAL NOTES: girna rivewr",
+      "status": "New",
+      "timestamp": "2026-06-07T12:39:26.440Z"
+    },
+    {
+      "id": "lead-1780836017692-716",
+      "name": "1",
+      "email": "",
+      "phone": "8010871044",
+      "division": "chatbot",
+      "message": "Lead collected via materials Chatbot. User asked: \"1\"",
+      "status": "New",
+      "timestamp": "2026-06-07T12:40:17.692Z"
+    },
+    {
+      "id": "lead-1780895723440-915",
+      "name": "bhbh",
+      "email": "jbhb@gmail.com",
+      "phone": "hjbhg",
+      "division": "materials",
+      "message": "Bulk Inquiry for Product: Premium Red Clay Bricks & Concrete Blocks. Quantity Needed: hj. Delivery Site: hubgg",
+      "status": "New",
+      "timestamp": "2026-06-08T05:15:23.440Z"
+    },
+    {
+      "id": "lead-1781197649734-335",
+      "name": "Lead Tester",
+      "email": "",
+      "phone": "+919975175762",
+      "division": "materials",
+      "message": "PARTNERSHIP TIE-UP ENQUIRY:\n    • Company: Antigravity Testing Ltd\n    • Contact: Lead Tester\n    • Plan Requested: PLATINUM\n    • Sourcing Category: STEEL\n    • Email: \n    • Details: Looking to buy 150 tons of JSW Steel per month.",
+      "status": "New",
+      "timestamp": "2026-06-11T17:07:29.734Z"
+    }
+  ],
+  "blogs": [
+    {
+      "id": "blog-1",
+      "title_en": "Why Triple-Washed River Sand Prevents Plaster Cracking",
+      "title_hi": "ट्रिपल-वाश की हुई नदी की रेत प्लास्टर में दरारें क्यों रोकती है",
+      "title_mr": "ट्रिपल-वॉश केलेली नदीची वाळू प्लास्टरमधील तडे का रोखते",
+      "content_en": "When it comes to construction durability, sand quality is paramount. Silt and clay particles present in unwashed sand absorb moisture, expanding and contracting over time. This cyclic change leads to hairline fractures in walls. Triple-washing sand removes these micro-impurities, assuring a high-adhesion matrix when mixed with premium OPC cement. The result is a smooth, crack-resistant plaster finish that protects your home for decades.",
+      "content_hi": "जब निर्माण स्थायित्व की बात आती है, तो रेत की गुणवत्ता सर्वोपरि होती है। बिना धुली रेत में मौजूद गाद और मिट्टी के कण नमी को सोख लेते हैं, जिससे समय के साथ वे फैलते और सिकुड़ते हैं। इस चक्रीय परिवर्तन से दीवारों में बारीक दरारें आ जाती हैं। ट्रिपल-वॉशिंग रेत इन सूक्ष्म-अशुद्धियों को दूर करती है, जिससे प्रीमियम ओपीसी सीमेंट के साथ मिश्रित होने पर उच्च-आसंजन मैट्रिक्स सुनिश्चित होता है। इसका परिणाम एक चिकना, दरार-प्रतिरोधी प्लास्टर फिनिश होता है जो दशकों तक आपके घर की रक्षा करता है।",
+      "content_mr": "जेव्हा बांधकामाच्या टिकाऊपणाचा प्रश्न येतो तेव्हा वाळूची गुणवत्ता अत्यंत महत्त्वाची असते. न धुता वापरलेल्या वाळूतील मातीचे कण आर्द्रता शोषून घेतात आणि कालांतराने प्रसरण व आकुंचन पावतात. या बदलांमुळे भिंतींवर बारीक तडे जातात. पानांची धूळ घालवून नद्यांच्या वाळूचे शुद्धीकरण केले जाते, ज्यामुळे सिमेंटसोबत मजबूत पकड तयार होते. परिणामी, एक गुळगुळीत आणि तडे-मुक्त प्लास्टर फिनिश मिळते जे तुमच्या घराचे अनेक दशके रक्षण करते.",
+      "author": "Vijay Patil (Logistics Head)",
+      "slug": "river-sand-quality",
+      "date": "2026-06-05"
+    },
+    {
+      "id": "blog-2",
+      "title_en": "Selecting Fe 550D TMT Rebars for Earthquake-Resistant Foundations",
+      "title_hi": "भूकंप-रोधी नींव के लिए Fe 550D टीएमटी सरियों का चयन",
+      "title_mr": "भूकंप-प्रतिरोधक पाया रचनेसाठी Fe 550D टीएमटी सरळ्यांची निवड",
+      "content_en": "Foundation strength is the core of structural safety. Fe 550D TMT steel bars provide a unique balance of high yield strength and superb ductility (indicated by the 'D' grade). Under tectonic stresses or heavy structural loads, these bars absorb energy and yield without abrupt snapping. Learn how JSW and Tata Tiscon FE 550D bars are processed using thermo-mechanical treatment to prevent internal stress concentration, securing high-rise buildings.",
+      "content_hi": "नींव की मजबूती संरचनात्मक सुरक्षा का मूल है। Fe 550D टीएमटी स्टील बार उच्च उपज शक्ति और शानदार लचीलापन (D ग्रेड द्वारा इंगित) का एक अनूठा संतुलन प्रदान करते हैं। भूकंपीय तनाव या भारी संरचनात्मक भार के तहत, ये बार ऊर्जा को अवशोषित करते हैं और अचानक टूटे बिना झुक जाते हैं। जानें कि कैसे JSW और टाटा टिस्कॉन FE 550D बार को आंतरिक तनाव एकाग्रता को रोकने के लिए थर्मो-मैकेनिकल उपचार का उपयोग करके संसाधित किया जाता है।",
+      "content_mr": "इमारतीच्या पायाची मजबूती हाच संपूर्ण संरचनेचा मुख्य गाभा असतो. Fe 550D टीएमटी सरळ्या उच्च सहनशक्ती आणि लवचिकता (D ग्रेड) यांचा उत्कृष्ट समतोल देतात. भूकंपाच्या धक्क्यांमध्ये किंवा प्रचंड वजनाखाली या सरळ्या न तुटता ताण शोषून घेतात. टाटा टिस्कॉन आणि JSW च्या Fe 550D सरळ्या वापरून पाया कसा मजबूत केला जातो आणि इमारतीचे आयुष्य कसे वाढवले जाते ते जाणून घ्या.",
+      "author": "Bhaiyya Patil (Chairman)",
+      "slug": "earthquake-resistant-tmt-bars",
+      "date": "2026-06-04"
+    }
+  ],
+  "seo": {
+    "home_title": "Jay Shree Ram | Premium Building Materials & Sand Supplier",
+    "home_description": "Leading distributor of cement, TMT steel bars, river sand, aggregates, concrete blocks, and infrastructure materials. ISO certified group.",
+    "hotel_title": "Construction Products & Materials Catalog | Wholesale Dealer",
+    "hotel_description": "Browse our range of cement brands, FE 550D steel rebars, clay bricks, and aggregates for commercial developers in Jalgaon and Bhadgaon.",
+    "sand_title": "Washed River Sand & Crushed Aggregates Cargo Logistics",
+    "sand_description": "Direct mine supplier of washed river sand, plaster sand, crushed stone aggregates, and massive cargo transit truck logistics.",
+    "materials_title": "Cement, Steel Rebars & Heavy Building Infrastructure Supplies",
+    "materials_description": "Wholesale building materials distributor of top cement brands, TMT steel rods, masonry blocks, and basalt aggregates.",
+    "keywords": "building materials, cement supplier, TMT steel bars, sand supplier, aggregates, bricks, concrete blocks, Jalgaon, Bhadgaon, Girad"
+  },
+  "users": [
+    {
+      "id": "user-admin",
+      "name": "Bhaiyya Patil",
+      "email": "admin@jayshreeram.com",
+      "phone": "+91 99751 75762",
+      "password": "admin123",
+      "role": "admin",
+      "timestamp": "2026-06-07T12:39:26.439Z"
+    },
+    {
+      "id": "user-client-1",
+      "name": "Rahul Client",
+      "email": "client@example.com",
+      "phone": "+91 98765 43210",
+      "password": "client123",
+      "role": "client",
+      "timestamp": "2026-06-07T12:39:26.439Z"
+    },
+    {
+      "id": "user-dealer-1",
+      "name": "Suresh Dealer",
+      "email": "dealer@example.com",
+      "phone": "+91 91234 56789",
+      "password": "dealer123",
+      "role": "dealer",
+      "timestamp": "2026-06-07T12:39:26.439Z"
+    }
+  ]
+}

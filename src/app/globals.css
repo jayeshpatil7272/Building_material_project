@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme {
+  --color-const-orange: #f26419;
+  --color-const-orange-dark: #b84409;
+  --color-const-gray: #2b303a;
+  --color-const-dark: #12141a;
+  --color-const-bg: #0b0c10;
+  
+  --color-steel-gray: #8892b0;
+  --color-steel-light: #ccd6f6;
+  --color-steel-dark: #495057;
+
+  --color-premium-border: rgba(255, 255, 255, 0.08);
+  --color-premium-glass: rgba(10, 10, 15, 0.7);
+
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-glow: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 4px rgba(242, 100, 25, 0.2), 0 0 10px rgba(242, 100, 25, 0.2);
+  }
+  to {
+    text-shadow: 0 0 8px rgba(242, 100, 25, 0.4), 0 0 20px rgba(242, 100, 25, 0.4);
+  }
+}
+
+:root {
+  --background: #050507;
+  --foreground: #f3f4f6;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050507;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(242, 100, 25, 0.5);
+}
+
+/* Premium Styling Utilities */
+.glassmorphism {
+  background: rgba(10, 10, 15, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glassmorphism-light {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.text-glow-orange {
+  text-shadow: 0 0 10px rgba(242, 100, 25, 0.4);
+}
+
+/* Custom transitions */
+.transition-luxury {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hide scrollbar for sliders */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Live Price Ticker Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 60s linear infinite;
+}
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Scrollbar Hide for Category Pills */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}

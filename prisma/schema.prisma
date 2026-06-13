@@ -1,0 +1,418 @@
+// Jay Shree Ram Enterprise Construction Marketplace
+// Prisma Schema - SQLite (dev) → PostgreSQL (production)
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────── USERS & AUTH ───────────────
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  phone         String   @unique
+  passwordHash  String
+  role          String   @default("client") // admin | client | dealer | supplier
+  avatar        String?
+  isVerified    Boolean  @default(false)
+  isActive      Boolean  @default(true)
+  gstNumber     String?
+  companyName   String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  addresses         Address[]
+  orders            Order[]
+  reviews           Review[]
+  notifications     Notification[]
+  rfqs              RFQ[]
+  aiConversations   AIConversation[]
+  supplierProfile   Supplier?
+  chatMessages      ChatMessage[]
+  wishlistItems     WishlistItem[]
+  analyticsEvents   AnalyticsEvent[]
+}
+
+// ─────────────── SUPPLIERS ───────────────
+
+model Supplier {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  businessName    String
+  gstNumber       String?
+  panNumber       String?
+  description     String?
+  address         String
+  city            String
+  state           String
+  pincode         String
+  rating          Float    @default(0)
+  totalReviews    Int      @default(0)
+  isApproved      Boolean  @default(false)
+  isActive        Boolean  @default(true)
+  commissionRate  Float    @default(5.0)
+  bankAccount     String?
+  ifscCode        String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  products    Product[]
+  inventory   Inventory[]
+}
+
+// ─────────────── CATEGORIES ───────────────
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  nameHi      String?
+  nameMr      String?
+  slug        String    @unique
+  icon        String?
+  description String?
+  sortOrder   Int       @default(0)
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  products Product[]
+}
+
+// ─────────────── PRODUCTS ───────────────
+
+model Product {
+  id           String   @id @default(cuid())
+  supplierId   String
+  supplier     Supplier @relation(fields: [supplierId], references: [id])
+  categoryId   String
+  category     Category @relation(fields: [categoryId], references: [id])
+  name         String
+  nameHi       String?
+  nameMr       String?
+  description  String?
+  descHi       String?
+  descMr       String?
+  sku          String   @unique
+  brand        String?
+  unit         String   // bags, MT, brass, pcs
+  basePrice    Float
+  mrp          Float?
+  gstRate      Float    @default(18)
+  minOrderQty  Int      @default(1)
+  maxOrderQty  Int?
+  weight       Float?
+  images       String?  // JSON array of URLs
+  specs        String?  // JSON specs object
+  tags         String?  // JSON tags array
+  isActive     Boolean  @default(true)
+  isApproved   Boolean  @default(false)
+  isFeatured   Boolean  @default(false)
+  totalSold    Int      @default(0)
+  rating       Float    @default(0)
+  totalReviews Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  inventory     Inventory?
+  orderItems    OrderItem[]
+  reviews       Review[]
+  wishlistItems WishlistItem[]
+  rfqItems      RFQItem[]
+}
+
+// ─────────────── INVENTORY ───────────────
+
+model Inventory {
+  id              String   @id @default(cuid())
+  productId       String   @unique
+  product         Product  @relation(fields: [productId], references: [id])
+  supplierId      String
+  supplier        Supplier @relation(fields: [supplierId], references: [id])
+  currentStock    Float    @default(0)
+  reservedStock   Float    @default(0)
+  lowStockAlert   Float    @default(10)
+  reorderPoint    Float    @default(20)
+  maxStock        Float?
+  warehouseLocation String?
+  lastRestocked   DateTime?
+  updatedAt       DateTime @updatedAt
+
+  stockMovements StockMovement[]
+}
+
+model StockMovement {
+  id          String    @id @default(cuid())
+  inventoryId String
+  inventory   Inventory @relation(fields: [inventoryId], references: [id])
+  type        String    // IN | OUT | RESERVED | RELEASED
+  quantity    Float
+  reason      String?
+  orderId     String?
+  createdAt   DateTime  @default(now())
+}
+
+// ─────────────── ORDERS ───────────────
+
+model Order {
+  id              String   @id @default(cuid())
+  orderNumber     String   @unique
+  customerId      String
+  customer        User     @relation(fields: [customerId], references: [id])
+  status          String   @default("pending") // pending | confirmed | packed | dispatched | delivered | cancelled | refunded
+  paymentStatus   String   @default("pending") // pending | paid | failed | refunded
+  paymentMethod   String?  // upi | card | cod | netbanking
+  razorpayOrderId String?
+  razorpayPayId   String?
+  
+  subtotal        Float
+  gstAmount       Float    @default(0)
+  deliveryCharge  Float    @default(0)
+  discount        Float    @default(0)
+  totalAmount     Float
+
+  deliveryAddress String   // JSON address snapshot
+  deliveryDistKm  Float?
+  deliverySlot    String?
+  estimatedDelivery DateTime?
+  actualDelivery  DateTime?
+  
+  notes           String?
+  cancelReason    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  items       OrderItem[]
+  invoice     Invoice?
+  tracking    OrderTracking[]
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  order       Order    @relation(fields: [orderId], references: [id])
+  productId   String
+  product     Product  @relation(fields: [productId], references: [id])
+  quantity    Float
+  unit        String
+  unitPrice   Float
+  gstRate     Float
+  gstAmount   Float
+  totalPrice  Float
+  supplierId  String
+  createdAt   DateTime @default(now())
+}
+
+model OrderTracking {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id])
+  status    String
+  message   String?
+  location  String?
+  driverName String?
+  driverPhone String?
+  vehicleNo  String?
+  createdAt DateTime @default(now())
+}
+
+// ─────────────── ADDRESSES ───────────────
+
+model Address {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String   @default("site") // home | office | site
+  label     String?
+  name      String
+  phone     String
+  line1     String
+  line2     String?
+  city      String
+  state     String
+  pincode   String
+  landmark  String?
+  lat       Float?
+  lng       Float?
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ─────────────── PAYMENTS & INVOICES ───────────────
+
+model Payment {
+  id              String   @id @default(cuid())
+  orderId         String
+  amount          Float
+  currency        String   @default("INR")
+  method          String
+  status          String   // pending | success | failed | refunded
+  razorpayId      String?
+  gatewayResponse String?  // JSON
+  createdAt       DateTime @default(now())
+}
+
+model Invoice {
+  id            String   @id @default(cuid())
+  orderId       String   @unique
+  order         Order    @relation(fields: [orderId], references: [id])
+  invoiceNumber String   @unique
+  invoiceDate   DateTime @default(now())
+  dueDate       DateTime?
+  subtotal      Float
+  gstBreakdown  String?  // JSON: {cgst, sgst, igst}
+  totalAmount   Float
+  pdfUrl        String?
+  isGSTInvoice  Boolean  @default(true)
+  createdAt     DateTime @default(now())
+}
+
+// ─────────────── REVIEWS ───────────────
+
+model Review {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  orderId   String?
+  rating    Int      // 1-5
+  title     String?
+  body      String?
+  images    String?  // JSON
+  isVerified Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ─────────────── RFQ ───────────────
+
+model RFQ {
+  id              String   @id @default(cuid())
+  rfqNumber       String   @unique
+  customerId      String
+  customer        User     @relation(fields: [customerId], references: [id])
+  projectName     String?
+  deliveryAddress String
+  deliveryDistKm  Float?
+  urgency         String   @default("standard")
+  status          String   @default("submitted") // submitted | reviewing | quoted | accepted | rejected
+  adminNotes      String?
+  quotedAmount    Float?
+  notes           String?
+  isAIGenerated   Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  items RFQItem[]
+}
+
+model RFQItem {
+  id            String   @id @default(cuid())
+  rfqId         String
+  rfq           RFQ      @relation(fields: [rfqId], references: [id])
+  productId     String?
+  product       Product? @relation(fields: [productId], references: [id])
+  materialName  String
+  quantity      Float
+  unit          String
+  specification String?
+  estimatedRate Float?
+}
+
+// ─────────────── NOTIFICATIONS ───────────────
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String   // order_placed | order_accepted | stock_alert | rfq_reply | etc.
+  title     String
+  message   String
+  data      String?  // JSON extra data
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+// ─────────────── DELIVERY PARTNERS ───────────────
+
+model DeliveryPartner {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String   @unique
+  vehicleNo   String?
+  vehicleType String?  // dumper | mini-truck | tempo
+  isAvailable Boolean  @default(true)
+  currentLat  Float?
+  currentLng  Float?
+  totalTrips  Int      @default(0)
+  rating      Float    @default(5.0)
+  createdAt   DateTime @default(now())
+}
+
+// ─────────────── AI / LLM ───────────────
+
+model AIConversation {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  title       String?
+  context     String?  // JSON: project details, preferences
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  messages AIMessage[]
+}
+
+model AIMessage {
+  id             String         @id @default(cuid())
+  conversationId String
+  conversation   AIConversation @relation(fields: [conversationId], references: [id])
+  role           String         // user | assistant | system
+  content        String
+  metadata       String?        // JSON: tokens, model, recommendations
+  createdAt      DateTime       @default(now())
+}
+
+// ─────────────── ANALYTICS ───────────────
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  event     String   // page_view | product_view | add_to_cart | order_placed | etc.
+  data      String?  // JSON
+  sessionId String?
+  ip        String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+// ─────────────── CHAT MESSAGES ───────────────
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  role      String   // user | assistant
+  content   String
+  language  String   @default("en")
+  createdAt DateTime @default(now())
+}
+
+// ─────────────── WISHLIST ───────────────
+
+model WishlistItem {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+}
